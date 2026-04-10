@@ -96,6 +96,10 @@ app.get('/admin/*', (req, res) => {
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/customer/index.html'));
 });
+
+// Start server
+const PORT = process.env.PORT || 3001;
+
 server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📱 Customer portal: http://localhost:${PORT}/customer/`);
