@@ -13,9 +13,13 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static files
+// Serve static files FIRST (this is important!)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(express.static(path.join(__dirname, '../client')));
+app.use('/css', express.static(path.join(__dirname, '../client/css')));
+app.use('/js', express.static(path.join(__dirname, '../client/js')));
+app.use('/customer', express.static(path.join(__dirname, '../client/customer')));
+app.use('/staff', express.static(path.join(__dirname, '../client/staff')));
+app.use('/admin', express.static(path.join(__dirname, '../client/admin')));
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -26,7 +30,7 @@ const reservationRoutes = require('./routes/reservationRoutes');
 const tableRoutes = require('./routes/tableRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
-// Use routes
+// API routes
 app.use('/api/users', authRoutes);
 app.use('/api/menu', menuRoutes);
 app.use('/api/cart', cartRoutes);
@@ -75,26 +79,25 @@ setTimeout(() => {
   archiveOldOrders();
 }, 3000);
 
-// Serve frontend HTML pages
+// Serve frontend - Root route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/customer/index.html'));
 });
 
-app.get('/customer/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client', req.path));
-});
-
-app.get('/staff/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client', req.path));
-});
-
-app.get('/admin/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client', req.path));
-});
-
-// Catch-all for SPA-style routing
+// Catch-all for other routes (after API and static files)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/customer/index.html'));
+  // Don't interfere with API routes
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ message: 'API endpoint not found' });
+  }
+  
+  // Try to serve the file, fallback to index.html
+  const requestedPath = path.join(__dirname, '../client', req.path);
+  res.sendFile(requestedPath, (err) => {
+    if (err) {
+      res.sendFile(path.join(__dirname, '../client/customer/index.html'));
+    }
+  });
 });
 
 // Start server
@@ -102,7 +105,7 @@ const PORT = process.env.PORT || 3001;
 
 server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📱 Customer portal: http://localhost:${PORT}/customer/`);
-  console.log(`👔 Staff portal: http://localhost:${PORT}/staff/`);
-  console.log(`👑 Admin portal: http://localhost:${PORT}/admin/`);
+  console.log(`📱 Customer portal: http://localhost:${PORT}/`);
+  console.log(`👔 Staff portal: http://localhost:${PORT}/staff/dashboard.html`);
+  console.log(`👑 Admin portal: http://localhost:${PORT}/admin/dashboard.html`);
 });
