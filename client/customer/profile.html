@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile - FoodieHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/customer.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html"><i class="fas fa-utensils"></i> FoodieHub</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart <span id="cart-count" class="cart-count">0</span></a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li id="user-menu" style="display: none;">
+          <a href="profile.html"><i class="fas fa-user"></i> <span id="user-name"></span></a>
+          <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+        <li id="login-link"><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1><i class="fas fa-user-circle"></i> My Profile</h1>
+    
+    <div class="profile-container">
+      <div class="profile-sidebar">
+        <div class="profile-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <h3 id="profile-name"></h3>
+        <p id="profile-email"></p>
+        <button class="btn-edit-profile" id="edit-profile-btn">Edit Profile</button>
+        <button class="btn-change-password" id="change-password-btn">Change Password</button>
+      </div>
+      
+      <div class="profile-content">
+        <div id="profile-info" class="profile-section">
+          <h2>Profile Information</h2>
+          <div class="info-row">
+            <strong>Full Name:</strong>
+            <span id="display-name"></span>
+          </div>
+          <div class="info-row">
+            <strong>Email:</strong>
+            <span id="display-email"></span>
+          </div>
+          <div class="info-row">
+            <strong>Phone:</strong>
+            <span id="display-phone"></span>
+          </div>
+          <div class="info-row">
+            <strong>Member Since:</strong>
+            <span id="display-joined"></span>
+          </div>
+          <div class="info-row">
+            <strong>Address:</strong>
+            <span id="display-address"></span>
+          </div>
+        </div>
+        
+        <div id="edit-profile-form" class="profile-section" style="display: none;">
+          <h2>Edit Profile</h2>
+          <form id="profile-form">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="edit-name" required>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" id="edit-phone" required>
+            </div>
+            <div class="form-group">
+              <label>Address</label>
+              <textarea id="edit-address" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Save Changes</button>
+            <button type="button" class="btn-secondary" id="cancel-edit">Cancel</button>
+          </form>
+        </div>
+        
+        <div id="change-password-form" class="profile-section" style="display: none;">
+          <h2>Change Password</h2>
+          <form id="password-form">
+            <div class="form-group">
+              <label>Current Password</label>
+              <input type="password" id="current-password" required>
+            </div>
+            <div class="form-group">
+              <label>New Password</label>
+              <input type="password" id="new-password" required>
+            </div>
+            <div class="form-group">
+              <label>Confirm New Password</label>
+              <input type="password" id="confirm-password" required>
+            </div>
+            <button type="submit" class="btn-primary">Change Password</button>
+            <button type="button" class="btn-secondary" id="cancel-password">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p class="copyright">&copy; 2025 FoodieHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/customer/global.js"></script>
+  <script type="module" src="../js/customer/profile.js"></script>
+</body>
+</html>

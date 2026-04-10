@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations - FoodieHub Staff</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/staff.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Staff</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="kitchen.html"><i class="fas fa-kitchen-set"></i> Kitchen</a></li>
+        <li><a href="takeorder.html"><i class="fas fa-pizza-slice"></i> Take Order</a></li>
+        <li><a href="reservations.html" class="active"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li id="admin-link" style="display: none;"><a href="../admin/dashboard.html"><i class="fas fa-crown"></i> Admin</a></li>
+        <li id="user-menu">
+          <span><i class="fas fa-user"></i> <span id="user-name"></span></span>
+          <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+      <div>
+        <h1 style="font-size: 1.8rem; margin-bottom: 0.25rem;"><i class="fas fa-calendar-alt" style="color: #ff6b6b;"></i> Reservation Management</h1>
+        <p style="color: #7f8c8d;">Manage table bookings and walk-ins</p>
+      </div>
+      <button id="new-reservation-btn" class="btn-primary" style="padding: 0.7rem 1.5rem;">
+        <i class="fas fa-plus"></i> New Reservation
+      </button>
+    </div>
+    
+    <!-- Stats -->
+    <div class="stats-row-clean">
+      <div class="stat-item-clean">
+        <div class="stat-number" id="today-res-count">0</div>
+        <div class="stat-label">Today</div>
+      </div>
+      <div class="stat-item-clean">
+        <div class="stat-number" id="upcoming-res-count">0</div>
+        <div class="stat-label">Upcoming</div>
+      </div>
+      <div class="stat-item-clean">
+        <div class="stat-number" id="arrived-count">0</div>
+        <div class="stat-label">Arrived</div>
+      </div>
+      <div class="stat-item-clean">
+        <div class="stat-number" id="completed-count">0</div>
+        <div class="stat-label">Completed</div>
+      </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="reservation-container">
+      <!-- Left: Reservations List -->
+      <div class="reservations-panel">
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="today"><i class="fas fa-calendar-day"></i> Today</button>
+          <button class="filter-btn" data-filter="tomorrow"><i class="fas fa-calendar-plus"></i> Tomorrow</button>
+          <button class="filter-btn" data-filter="week"><i class="fas fa-calendar-week"></i> This Week</button>
+          <button class="filter-btn" data-filter="all"><i class="fas fa-list"></i> All</button>
+        </div>
+        
+        <!-- Search & Status Filter -->
+        <div class="search-bar">
+          <input type="text" id="search-reservations" class="search-input-clean" placeholder="🔍 Search by name or phone...">
+          <select id="status-filter" class="form-control-clean" style="width: 140px;">
+            <option value="">All Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Arrived">Arrived</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        
+        <!-- Reservations List Container -->
+        <div id="reservations-list">
+          <div style="text-align: center; padding: 2rem;">
+            <div class="spinner"></div>
+            <p style="color: #7f8c8d; margin-top: 0.5rem;">Loading reservations...</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right: Quick Booking Form -->
+      <div class="booking-panel">
+        <div class="booking-form-clean">
+          <h3><i class="fas fa-plus-circle" style="color: #ff6b6b;"></i> Quick Booking</h3>
+          
+          <form id="staff-reservation-form">
+            <div class="form-group-clean">
+              <label>Customer Name *</label>
+              <input type="text" id="res-cust-name" class="form-control-clean" placeholder="Full name" required>
+            </div>
+            
+            <div class="form-group-clean">
+              <label>Phone Number *</label>
+              <input type="tel" id="res-cust-phone" class="form-control-clean" placeholder="Contact number" required>
+            </div>
+            
+            <div class="form-row-clean">
+              <div class="form-group-clean">
+                <label>Date *</label>
+                <input type="date" id="res-date" class="form-control-clean" required>
+              </div>
+              <div class="form-group-clean">
+                <label>Time *</label>
+                <select id="res-time" class="form-control-clean" required>
+                  <option value="">Select time</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-row-clean">
+              <div class="form-group-clean">
+                <label>Guests *</label>
+                <select id="res-guests" class="form-control-clean" required>
+                  <option value="1">1 Guest</option>
+                  <option value="2">2 Guests</option>
+                  <option value="3">3 Guests</option>
+                  <option value="4">4 Guests</option>
+                  <option value="5">5 Guests</option>
+                  <option value="6">6 Guests</option>
+                  <option value="7">7 Guests</option>
+                  <option value="8">8+ Guests</option>
+                </select>
+              </div>
+              <div class="form-group-clean">
+                <label>Table</label>
+                <select id="res-table" class="form-control-clean">
+                  <option value="">Auto-assign</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group-clean">
+              <label>Special Requests</label>
+              <textarea id="res-requests" class="form-control-clean" rows="2" placeholder="Allergies, preferences..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn-primary-clean">
+              <i class="fas fa-check-circle"></i> Create Reservation
+            </button>
+          </form>
+        </div>
+        
+        <!-- Table Availability -->
+        <div class="availability-summary">
+          <h4><i class="fas fa-chair"></i> Table Availability</h4>
+          <div id="table-availability-summary">
+            <div class="availability-row"><span>Loading...</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/customer/global.js"></script>
+  <script type="module" src="../js/staff/reservations.js"></script>
+</body>
+</html>

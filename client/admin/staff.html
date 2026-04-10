@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Staff - FoodieHub Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Admin</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="homepage.html"><i class="fas fa-home"></i> Homepage</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li><a href="staff.html" class="active"><i class="fas fa-user-tie"></i> Staff</a></li>
+        <li><a href="tables.html"><i class="fas fa-chair"></i> Tables</a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="../customer/index.html"><i class="fas fa-store"></i> Frontend</a></li>
+        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1><i class="fas fa-user-tie"></i> Manage Staff</h1>
+    
+    <!-- Stats -->
+    <div class="quick-stats-row">
+      <div class="quick-stat-item">
+        <span id="total-staff-stat">0</span>
+        <span>Total Staff</span>
+      </div>
+      <div class="quick-stat-item">
+        <span id="active-staff-stat">0</span>
+        <span>Active Staff</span>
+      </div>
+      <div class="quick-stat-item">
+        <span id="admin-count-stat">0</span>
+        <span>Admins</span>
+      </div>
+      <div class="quick-stat-item">
+        <span id="staff-only-stat">0</span>
+        <span>Staff Members</span>
+      </div>
+    </div>
+    
+    <!-- Add Staff Form -->
+    <div class="admin-section">
+      <h2><i class="fas fa-plus-circle"></i> Add New Staff Member</h2>
+      <form id="add-staff-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="staff-name" placeholder="Enter full name" required>
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" id="staff-email" placeholder="Enter email address" required>
+          </div>
+          <div class="form-group">
+            <label>Phone *</label>
+            <input type="tel" id="staff-phone" placeholder="Enter phone number" required>
+          </div>
+          <div class="form-group">
+            <label>Password *</label>
+            <input type="password" id="staff-password" placeholder="Create password" required>
+          </div>
+          <div class="form-group">
+            <label>Role *</label>
+            <select id="staff-role" required>
+              <option value="staff">Staff</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Department</label>
+            <select id="staff-department">
+              <option value="Kitchen">Kitchen</option>
+              <option value="Service">Service</option>
+              <option value="Management">Management</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fas fa-user-plus"></i> Add Staff Member</button>
+      </form>
+    </div>
+    
+    <!-- Staff List -->
+    <div class="admin-section">
+      <h2><i class="fas fa-list"></i> Staff List</h2>
+      <div id="staff-list">
+        <div class="loading"><div class="spinner"></div><p>Loading staff...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/admin/staff.js"></script>
+</body>
+</html>

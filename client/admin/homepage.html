@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homepage Manager - FoodieHub Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Admin</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li><a href="staff.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+        <li><a href="tables.html"><i class="fas fa-chair"></i> Tables</a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="homepage.html" class="active"><i class="fas fa-home"></i> Homepage</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="../customer/index.html"><i class="fas fa-store"></i> Frontend</a></li>
+        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1><i class="fas fa-home"></i> Homepage Manager</h1>
+    <p style="color: #666; margin-bottom: 2rem;">Control what appears on your customer homepage</p>
+    
+    <!-- Hero Section -->
+    <div class="admin-section">
+      <h2><i class="fas fa-image"></i> Hero Section</h2>
+      <form id="hero-form">
+        <div class="form-group">
+          <label>Hero Title</label>
+          <input type="text" id="hero-title" value="Welcome to Sujan's Foodie Hub" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Hero Subtitle</label>
+          <input type="text" id="hero-subtitle" value="Authentic Nepali Flavors | Warm Ambiance | Exceptional Service" class="form-control">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Primary Button Text</label>
+            <input type="text" id="hero-btn-primary" value="Explore Menu">
+          </div>
+          <div class="form-group">
+            <label>Secondary Button Text</label>
+            <input type="text" id="hero-btn-secondary" value="Book a Table">
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <!-- Section Visibility -->
+    <div class="admin-section">
+      <h2><i class="fas fa-eye"></i> Section Visibility</h2>
+      <div class="form-grid">
+        <label class="checkbox-label">
+          <input type="checkbox" id="show-chef-special" checked> Show Chef's Special Section
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="show-today-special" checked> Show Today's Special Section
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="show-offers" checked> Show Special Offers Section
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="show-testimonials" checked> Show Testimonials Section
+        </label>
+      </div>
+    </div>
+    
+    <!-- Chef's Special Settings -->
+    <div class="admin-section">
+      <h2><i class="fas fa-crown"></i> Chef's Special Settings</h2>
+      <div class="form-group">
+        <label>Number of items to display</label>
+        <input type="number" id="chef-special-count" value="4" min="1" max="8">
+      </div>
+      <p style="color: #666; font-size: 0.85rem;">
+        <i class="fas fa-info-circle"></i> Items marked as "Chef's Special" in Menu Management will appear here.
+        <a href="menu.html" style="color: #ff6b6b;">Manage Menu →</a>
+      </p>
+    </div>
+    
+    <!-- Today's Special Settings -->
+    <div class="admin-section">
+      <h2><i class="fas fa-fire"></i> Today's Special Settings</h2>
+      <div class="form-group">
+        <label>Number of items to display</label>
+        <input type="number" id="today-special-count" value="4" min="1" max="8">
+      </div>
+      <p style="color: #666; font-size: 0.85rem;">
+        <i class="fas fa-info-circle"></i> Items marked as "Today's Special" in Menu Management will appear here.
+      </p>
+    </div>
+    
+    <!-- Offers Management -->
+    <div class="admin-section">
+      <h2><i class="fas fa-tags"></i> Special Offers</h2>
+      <div id="offers-list"></div>
+      <button id="add-offer" class="btn-secondary" style="margin-top: 1rem;">
+        <i class="fas fa-plus"></i> Add Offer
+      </button>
+    </div>
+    
+    <!-- Save Button -->
+    <div style="display: flex; justify-content: flex-end; margin: 2rem 0;">
+      <button id="save-homepage" class="btn-primary" style="padding: 1rem 2rem;">
+        <i class="fas fa-save"></i> Save Homepage Settings
+      </button>
+    </div>
+  </div>
+
+  <script type="module" src="../js/admin/homepage.js"></script>
+</body>
+</html>

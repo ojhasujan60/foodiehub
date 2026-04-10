@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Tables - FoodieHub Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Admin</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="homepage.html"><i class="fas fa-home"></i> Homepage</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li><a href="staff.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+        <li><a href="tables.html" class="active"><i class="fas fa-chair"></i> Tables</a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="../customer/index.html"><i class="fas fa-store"></i> Frontend</a></li>
+        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+      <h1><i class="fas fa-chair"></i> Manage Tables</h1>
+      <a href="reservations.html" class="btn-secondary">
+        <i class="fas fa-calendar-alt"></i> View Reservations
+      </a>
+    </div>
+    
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-number" id="total-tables-stat">0</div>
+        <div><i class="fas fa-chair"></i> Total Tables</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="available-tables-stat">0</div>
+        <div><i class="fas fa-check-circle"></i> Available</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="occupied-tables-stat">0</div>
+        <div><i class="fas fa-users"></i> Occupied</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="total-capacity-stat">0</div>
+        <div><i class="fas fa-user"></i> Total Capacity</div>
+      </div>
+    </div>
+    
+    <!-- Add Table Form -->
+    <div class="admin-section">
+      <h2><i class="fas fa-plus-circle"></i> Add New Table</h2>
+      <form id="add-table-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Table Number *</label>
+            <input type="number" name="tableNumber" placeholder="e.g., 1" required min="1">
+          </div>
+          <div class="form-group">
+            <label>Capacity (seats) *</label>
+            <input type="number" name="capacity" placeholder="e.g., 4" required min="1">
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <select name="location">
+              <option value="Indoor">Indoor</option>
+              <option value="Outdoor">Outdoor</option>
+              <option value="VIP">VIP</option>
+              <option value="Balcony">Balcony</option>
+              <option value="Terrace">Terrace</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Shape</label>
+            <select name="shape">
+              <option value="Round">Round</option>
+              <option value="Square">Square</option>
+              <option value="Rectangle">Rectangle</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit"><i class="fas fa-plus"></i> Add Table</button>
+      </form>
+    </div>
+    
+    <!-- Tables Grid View -->
+    <div class="admin-section">
+      <h2><i class="fas fa-th"></i> Table Layout</h2>
+      <div id="tables-grid-view" class="tables-grid-admin">
+        <div class="loading"><div class="spinner"></div><p>Loading tables...</p></div>
+      </div>
+    </div>
+    
+    <!-- Tables List View -->
+    <div class="admin-section">
+      <h2><i class="fas fa-list"></i> All Tables</h2>
+      <div id="tables-list">
+        <div class="loading"><div class="spinner"></div><p>Loading tables...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/admin/tables.js"></script>
+</body>
+</html>

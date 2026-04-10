@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Dashboard - FoodieHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/staff.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Staff</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="kitchen.html"><i class="fas fa-kitchen-set"></i> Kitchen</a></li>
+        <li><a href="takeorder.html"><i class="fas fa-pizza-slice"></i> Take Order</a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li id="admin-link" style="display: none;"><a href="../admin/dashboard.html"><i class="fas fa-crown"></i> Admin</a></li>
+        <li id="user-menu">
+          <span><i class="fas fa-user"></i> <span id="user-name"></span></span>
+          <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Welcome Header -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+      <div>
+        <h1 style="font-size: 1.8rem; margin-bottom: 0.25rem;"><i class="fas fa-tachometer-alt" style="color: #ff6b6b;"></i> Staff Dashboard</h1>
+        <p style="color: #7f8c8d;">Welcome back, <span id="staff-name">Staff</span>! Here's what's happening today.</p>
+      </div>
+      <div style="display: flex; gap: 0.75rem;">
+        <a href="takeorder.html" class="btn-primary" style="background: #ff6b6b; color: white; padding: 0.7rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500;">
+          <i class="fas fa-plus"></i> New Order
+        </a>
+        <a href="reservations.html" class="btn-secondary" style="background: white; color: #2c3e50; padding: 0.7rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 500; border: 1px solid #ddd;">
+          <i class="fas fa-calendar-plus"></i> New Reservation
+        </a>
+      </div>
+    </div>
+    
+    <!-- Stats Cards - CLEAN DESIGN -->
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+      <div class="stat-card-clean">
+        <div>
+          <div class="stat-number-clean" id="pending-orders">0</div>
+          <div class="stat-label-clean">Pending Orders</div>
+        </div>
+        <div class="stat-icon-clean"><i class="fas fa-clock"></i></div>
+      </div>
+      <div class="stat-card-clean">
+        <div>
+          <div class="stat-number-clean" id="preparing-orders">0</div>
+          <div class="stat-label-clean">Preparing</div>
+        </div>
+        <div class="stat-icon-clean"><i class="fas fa-fire"></i></div>
+      </div>
+      <div class="stat-card-clean">
+        <div>
+          <div class="stat-number-clean" id="ready-orders">0</div>
+          <div class="stat-label-clean">Ready to Serve</div>
+        </div>
+        <div class="stat-icon-clean"><i class="fas fa-check-circle"></i></div>
+      </div>
+      <div class="stat-card-clean">
+        <div>
+          <div class="stat-number-clean" id="today-reservations">0</div>
+          <div class="stat-label-clean">Today's Reservations</div>
+        </div>
+        <div class="stat-icon-clean"><i class="fas fa-calendar-day"></i></div>
+      </div>
+    </div>
+    
+    <!-- Dashboard Grid -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      
+      <!-- Kitchen Alerts -->
+      <div style="background: white; border-radius: 16px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #f0f0f0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-bell" style="color: #ff6b6b;"></i> Kitchen Alerts</h3>
+          <a href="kitchen.html" style="color: #ff6b6b; text-decoration: none; font-size: 0.8rem;">View All →</a>
+        </div>
+        <div id="kitchen-alerts">
+          <div class="loading"><div class="spinner"></div><p>Loading...</p></div>
+        </div>
+      </div>
+      
+      <!-- Table Status -->
+      <div style="background: white; border-radius: 16px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #f0f0f0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-chair" style="color: #ff6b6b;"></i> Table Status</h3>
+          <span style="font-size: 0.75rem; color: #7f8c8d;"><span id="available-tables-count">0</span> available</span>
+        </div>
+        <div id="table-status-grid" class="table-status-grid">
+          <div class="loading">Loading...</div>
+        </div>
+      </div>
+      
+      <!-- Today's Stats -->
+      <div style="background: white; border-radius: 16px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #f0f0f0;">
+        <h3 style="font-size: 1rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i class="fas fa-chart-line" style="color: #ff6b6b;"></i> Today's Performance</h3>
+        <div id="today-stats">
+          <div class="loading">Loading...</div>
+        </div>
+      </div>
+      
+      <!-- Upcoming Reservations -->
+      <div style="background: white; border-radius: 16px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #f0f0f0;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 style="font-size: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-calendar-alt" style="color: #ff6b6b;"></i> Upcoming Reservations</h3>
+          <a href="reservations.html" style="color: #ff6b6b; text-decoration: none; font-size: 0.8rem;">View All →</a>
+        </div>
+        <div id="upcoming-reservations">
+          <div class="loading">Loading...</div>
+        </div>
+      </div>
+      
+      <!-- Recent Orders -->
+      <div style="grid-column: span 2; background: white; border-radius: 16px; padding: 1.25rem; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid #f0f0f0;">
+        <h3 style="font-size: 1rem; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;"><i class="fas fa-history" style="color: #ff6b6b;"></i> Recent Orders</h3>
+        <div id="recent-orders">
+          <div class="loading">Loading...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/customer/global.js"></script>
+  <script type="module" src="../js/staff/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Orders - FoodieHub Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Admin</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="homepage.html"><i class="fas fa-home"></i> Homepage</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="orders.html" class="active"><i class="fas fa-box"></i> Orders</a></li>
+        <li><a href="staff.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+        <li><a href="tables.html"><i class="fas fa-chair"></i> Tables</a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="../customer/index.html"><i class="fas fa-store"></i> Frontend</a></li>
+        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+      <h1><i class="fas fa-box"></i> Manage Orders</h1>
+      <div style="display: flex; gap: 0.5rem;">
+        <button id="export-orders" class="btn-secondary"><i class="fas fa-download"></i> Export CSV</button>
+        <button id="refresh-orders" class="btn-primary"><i class="fas fa-sync-alt"></i> Refresh</button>
+      </div>
+    </div>
+    
+    <!-- Stats Cards -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-number" id="total-orders-stat">0</div>
+        <div><i class="fas fa-shopping-cart"></i> Total Orders</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="pending-orders-stat">0</div>
+        <div><i class="fas fa-clock"></i> Pending</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="preparing-orders-stat">0</div>
+        <div><i class="fas fa-fire"></i> Preparing</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="delivered-orders-stat">0</div>
+        <div><i class="fas fa-check-circle"></i> Delivered</div>
+      </div>
+    </div>
+    
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-group">
+        <label><i class="fas fa-filter"></i> Status</label>
+        <select id="status-filter">
+          <option value="">All Status</option>
+          <option value="Pending">Pending</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Preparing">Preparing</option>
+          <option value="Ready">Ready</option>
+          <option value="Out for Delivery">Out for Delivery</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-utensils"></i> Order Type</label>
+        <select id="type-filter">
+          <option value="">All Types</option>
+          <option value="Delivery">Delivery</option>
+          <option value="Takeaway">Takeaway</option>
+          <option value="Dine-in">Dine-in</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-calendar"></i> Date</label>
+        <input type="date" id="date-filter">
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-search"></i> Search</label>
+        <input type="text" id="search-filter" placeholder="Order #, name, email...">
+      </div>
+    </div>
+    
+    <!-- Bulk Actions -->
+    <div class="bulk-actions" style="margin-bottom: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <input type="checkbox" id="select-all-orders">
+        <label for="select-all-orders">Select All</label>
+      </div>
+      <div style="display: flex; gap: 0.5rem;">
+        <select id="bulk-status" style="padding: 0.4rem; border-radius: 6px; border: 1px solid #ddd;">
+          <option value="">Bulk Update Status</option>
+          <option value="Confirmed">Confirm</option>
+          <option value="Preparing">Start Preparing</option>
+          <option value="Ready">Mark Ready</option>
+          <option value="Delivered">Mark Delivered</option>
+          <option value="Cancelled">Cancel</option>
+        </select>
+        <button id="apply-bulk" class="btn-secondary">Apply</button>
+      </div>
+    </div>
+    
+    <!-- Orders List -->
+    <div id="orders-list">
+      <div class="loading"><div class="spinner"></div><p>Loading orders...</p></div>
+    </div>
+    
+    <!-- Pagination -->
+    <div id="pagination-container"></div>
+  </div>
+
+  <!-- Order Details Modal -->
+  <div id="order-details-modal" class="modal">
+    <div class="modal-content" style="max-width: 700px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-receipt"></i> Order Details</h3>
+        <span class="modal-close">&times;</span>
+      </div>
+      <div id="order-details-content"></div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/admin/orders.js"></script>
+</body>
+</html>

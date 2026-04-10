@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations - FoodieHub Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Admin</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="homepage.html"><i class="fas fa-home"></i> Homepage</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li><a href="staff.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+        <li><a href="tables.html"><i class="fas fa-chair"></i> Tables</a></li>
+        <li><a href="reservations.html" class="active"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="../customer/index.html"><i class="fas fa-store"></i> Frontend</a></li>
+        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+      <h1><i class="fas fa-calendar-alt"></i> Reservations Management</h1>
+      <div style="display: flex; gap: 0.75rem;">
+        <a href="tables.html" class="btn-secondary" style="background: white; color: #333; border: 1px solid #ddd;">
+          <i class="fas fa-chair"></i> Manage Tables
+        </a>
+        <button id="new-reservation-btn" class="btn-primary">
+          <i class="fas fa-plus"></i> New Reservation
+        </button>
+      </div>
+    </div>
+    
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-box">
+        <div class="stat-number" id="today-res-count">0</div>
+        <div><i class="fas fa-calendar-day"></i> Today's Reservations</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="total-tables-stat">0</div>
+        <div><i class="fas fa-chair"></i> Total Tables</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="available-tables-stat">0</div>
+        <div><i class="fas fa-check-circle"></i> Available Tables</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" id="upcoming-res-stat">0</div>
+        <div><i class="fas fa-clock"></i> Upcoming</div>
+      </div>
+    </div>
+    
+    <!-- Quick Stats Summary -->
+    <div class="quick-stats-row" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+      <div class="quick-stat-item" style="background: #f8f9fa; padding: 0.75rem; border-radius: 10px; text-align: center;">
+        <span style="color: #ff9800; font-weight: 600;" id="pending-res-count">0</span>
+        <span style="font-size: 0.75rem; color: #666; display: block;">Pending</span>
+      </div>
+      <div class="quick-stat-item" style="background: #f8f9fa; padding: 0.75rem; border-radius: 10px; text-align: center;">
+        <span style="color: #2196f3; font-weight: 600;" id="confirmed-res-count">0</span>
+        <span style="font-size: 0.75rem; color: #666; display: block;">Confirmed</span>
+      </div>
+      <div class="quick-stat-item" style="background: #f8f9fa; padding: 0.75rem; border-radius: 10px; text-align: center;">
+        <span style="color: #4caf50; font-weight: 600;" id="arrived-res-count">0</span>
+        <span style="font-size: 0.75rem; color: #666; display: block;">Arrived</span>
+      </div>
+      <div class="quick-stat-item" style="background: #f8f9fa; padding: 0.75rem; border-radius: 10px; text-align: center;">
+        <span style="color: #9c27b0; font-weight: 600;" id="completed-res-count">0</span>
+        <span style="font-size: 0.75rem; color: #666; display: block;">Completed</span>
+      </div>
+    </div>
+    
+    <!-- Filters -->
+    <div class="filters">
+      <div class="filter-group">
+        <label><i class="fas fa-calendar"></i> Date</label>
+        <select id="date-filter">
+          <option value="today">Today</option>
+          <option value="tomorrow">Tomorrow</option>
+          <option value="week">This Week</option>
+          <option value="month">This Month</option>
+          <option value="all">All Dates</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-filter"></i> Status</label>
+        <select id="status-filter">
+          <option value="">All Status</option>
+          <option value="Pending">Pending</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Arrived">Arrived</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="No-Show">No-Show</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-sort"></i> Sort By</label>
+        <select id="sort-filter">
+          <option value="time">Time (Earliest)</option>
+          <option value="time-desc">Time (Latest)</option>
+          <option value="date">Date (Earliest)</option>
+          <option value="date-desc">Date (Latest)</option>
+          <option value="guests">Guests (Most)</option>
+          <option value="status">Status</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-search"></i> Search</label>
+        <input type="text" id="search-filter" placeholder="Search by name, phone, email...">
+      </div>
+    </div>
+    
+    <!-- Bulk Actions -->
+    <div class="bulk-actions" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <input type="checkbox" id="select-all-reservations">
+        <label for="select-all-reservations" style="font-size: 0.85rem;">Select All</label>
+      </div>
+      <div style="display: flex; gap: 0.5rem;">
+        <button id="bulk-confirm" class="btn-secondary" style="background: #2196f3; color: white; border: none; padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.8rem;">
+          <i class="fas fa-check"></i> Confirm Selected
+        </button>
+        <button id="bulk-cancel" class="btn-secondary" style="background: #f44336; color: white; border: none; padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.8rem;">
+          <i class="fas fa-times"></i> Cancel Selected
+        </button>
+        <button id="export-reservations" class="btn-secondary" style="background: #4caf50; color: white; border: none; padding: 0.4rem 1rem; border-radius: 6px; font-size: 0.8rem;">
+          <i class="fas fa-download"></i> Export CSV
+        </button>
+      </div>
+    </div>
+    
+    <!-- Reservations List -->
+    <div id="reservations-list">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Loading reservations...</p>
+      </div>
+    </div>
+    
+    <!-- Pagination -->
+    <div id="pagination-container" style="display: flex; justify-content: center; margin-top: 1.5rem;"></div>
+  </div>
+  
+  <!-- New Reservation Modal -->
+  <div id="reservation-modal" class="modal">
+    <div class="modal-content" style="max-width: 550px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-calendar-plus"></i> New Reservation</h3>
+        <span class="modal-close-res">&times;</span>
+      </div>
+      <form id="admin-reservation-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Customer Name *</label>
+            <input type="text" id="cust-name" placeholder="Enter full name" required>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="cust-phone" placeholder="Enter phone number" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email (Optional)</label>
+          <input type="email" id="cust-email" placeholder="Enter email address">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date *</label>
+            <input type="date" id="res-date" required>
+          </div>
+          <div class="form-group">
+            <label>Time *</label>
+            <select id="res-time" required>
+              <option value="">Select time</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Number of Guests *</label>
+            <select id="res-guests" required>
+              <option value="1">1 Guest</option>
+              <option value="2">2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5">5 Guests</option>
+              <option value="6">6 Guests</option>
+              <option value="7">7 Guests</option>
+              <option value="8">8+ Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Assign Table</label>
+            <select id="res-table">
+              <option value="">Auto-assign</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Occasion</label>
+            <select id="res-occasion">
+              <option value="Casual">Casual Dining</option>
+              <option value="Birthday">🎂 Birthday</option>
+              <option value="Anniversary">💑 Anniversary</option>
+              <option value="Date">🌹 Date Night</option>
+              <option value="Business">💼 Business Meeting</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="res-status">
+              <option value="Pending">Pending</option>
+              <option value="Confirmed">Confirmed</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Special Requests</label>
+          <textarea id="res-requests" rows="2" placeholder="Dietary restrictions, allergies, seating preferences, etc."></textarea>
+        </div>
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 0.5rem;">
+            <input type="checkbox" id="send-notification" checked>
+            Send confirmation SMS/Email to customer
+          </label>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%;">
+          <i class="fas fa-check-circle"></i> Create Reservation
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Edit Reservation Modal -->
+  <div id="edit-reservation-modal" class="modal">
+    <div class="modal-content" style="max-width: 550px;">
+      <div class="modal-header">
+        <h3><i class="fas fa-edit"></i> Edit Reservation</h3>
+        <span class="modal-close-edit">&times;</span>
+      </div>
+      <form id="edit-reservation-form">
+        <input type="hidden" id="edit-res-id">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Customer Name *</label>
+            <input type="text" id="edit-cust-name" required>
+          </div>
+          <div class="form-group">
+            <label>Phone Number *</label>
+            <input type="tel" id="edit-cust-phone" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="edit-cust-email">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date *</label>
+            <input type="date" id="edit-res-date" required>
+          </div>
+          <div class="form-group">
+            <label>Time *</label>
+            <select id="edit-res-time" required>
+              <option value="">Select time</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Guests *</label>
+            <select id="edit-res-guests" required>
+              <option value="1">1 Guest</option>
+              <option value="2">2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5">5 Guests</option>
+              <option value="6">6 Guests</option>
+              <option value="7">7 Guests</option>
+              <option value="8">8+ Guests</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Table</label>
+            <select id="edit-res-table">
+              <option value="">Auto-assign</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Occasion</label>
+            <select id="edit-res-occasion">
+              <option value="Casual">Casual Dining</option>
+              <option value="Birthday">🎂 Birthday</option>
+              <option value="Anniversary">💑 Anniversary</option>
+              <option value="Date">🌹 Date Night</option>
+              <option value="Business">💼 Business Meeting</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Status</label>
+            <select id="edit-res-status" required>
+              <option value="Pending">Pending</option>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Arrived">Arrived</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+              <option value="No-Show">No-Show</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Special Requests</label>
+          <textarea id="edit-res-requests" rows="2"></textarea>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="submit" class="btn-primary" style="flex: 2;">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+          <button type="button" class="btn-secondary" id="cancel-edit-btn" style="flex: 1;">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Delete Confirmation Modal -->
+  <div id="delete-confirm-modal" class="modal">
+    <div class="modal-content" style="max-width: 400px; text-align: center;">
+      <div style="font-size: 3rem; color: #f44336; margin-bottom: 1rem;">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h3 style="margin-bottom: 0.5rem;">Delete Reservation?</h3>
+      <p style="color: #666; margin-bottom: 1.5rem;">This action cannot be undone.</p>
+      <div style="display: flex; gap: 0.75rem;">
+        <button id="confirm-delete-btn" class="btn-primary" style="background: #f44336; flex: 1;">
+          Delete
+        </button>
+        <button id="cancel-delete-btn" class="btn-secondary" style="flex: 1;">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/admin/reservations.js"></script>
+</body>
+</html>

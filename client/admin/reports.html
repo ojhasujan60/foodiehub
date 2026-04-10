@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports - FoodieHub Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Admin</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="homepage.html"><i class="fas fa-home"></i> Homepage</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li><a href="staff.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+        <li><a href="tables.html"><i class="fas fa-chair"></i> Tables</a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="reports.html" class="active"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="../customer/index.html"><i class="fas fa-store"></i> Frontend</a></li>
+        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+      <h1><i class="fas fa-chart-line"></i> Sales Reports</h1>
+      <div style="display: flex; gap: 0.5rem;">
+        <button id="export-report-pdf" class="btn-secondary"><i class="fas fa-file-pdf"></i> Export PDF</button>
+        <button id="export-report-csv" class="btn-primary"><i class="fas fa-download"></i> Export CSV</button>
+      </div>
+    </div>
+    
+    <!-- Period Filter -->
+    <div class="filters">
+      <div class="filter-group">
+        <label><i class="fas fa-calendar"></i> Period</label>
+        <select id="period-select">
+          <option value="today">Today</option>
+          <option value="yesterday">Yesterday</option>
+          <option value="week">Last 7 Days</option>
+          <option value="month">Last 30 Days</option>
+          <option value="quarter">Last 3 Months</option>
+          <option value="year">This Year</option>
+          <option value="custom">Custom Range</option>
+        </select>
+      </div>
+      <div id="custom-date-range" style="display: none; display: flex; gap: 1rem;">
+        <div class="filter-group">
+          <label>Start Date</label>
+          <input type="date" id="start-date">
+        </div>
+        <div class="filter-group">
+          <label>End Date</label>
+          <input type="date" id="end-date">
+        </div>
+        <div class="filter-group" style="display: flex; align-items: flex-end;">
+          <button id="apply-date" class="btn-primary">Apply</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Report Stats -->
+    <div class="report-stats">
+      <div class="stat-card">
+        <div class="stat-info">
+          <h3>Total Revenue</h3>
+          <div class="stat-number" id="report-revenue">रु 0</div>
+        </div>
+        <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <h3>Total Orders</h3>
+          <div class="stat-number" id="report-orders">0</div>
+        </div>
+        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-info">
+          <h3>Average Order</h3>
+          <div class="stat-number" id="report-average">रु 0</div>
+        </div>
+        <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+      </div>
+    </div>
+    
+    <!-- Additional Stats -->
+    <div class="quick-stats-row">
+      <div class="quick-stat-item">
+        <span id="total-items-sold">0</span>
+        <span>Items Sold</span>
+      </div>
+      <div class="quick-stat-item">
+        <span id="total-reservations">0</span>
+        <span>Reservations</span>
+      </div>
+      <div class="quick-stat-item">
+        <span id="cancelled-orders">0</span>
+        <span>Cancelled Orders</span>
+      </div>
+      <div class="quick-stat-item">
+        <span id="completion-rate">0%</span>
+        <span>Completion Rate</span>
+      </div>
+    </div>
+    
+    <!-- Sales Chart -->
+    <div class="chart-card" style="margin-bottom: 1.5rem;">
+      <h3><i class="fas fa-chart-line"></i> Daily Sales Breakdown</h3>
+      <div class="chart-container" style="height: 300px;">
+        <canvas id="sales-chart"></canvas>
+      </div>
+    </div>
+    
+    <!-- Top Items Chart -->
+    <div class="charts-row">
+      <div class="chart-card">
+        <h3><i class="fas fa-trophy"></i> Top Selling Items</h3>
+        <div class="chart-container">
+          <canvas id="top-items-chart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fas fa-chart-pie"></i> Order Types</h3>
+        <div class="chart-container">
+          <canvas id="order-types-chart"></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Order Details Table -->
+    <div class="admin-section">
+      <h2><i class="fas fa-list"></i> Order Details</h2>
+      <div id="report-orders-list">
+        <div class="loading"><div class="spinner"></div><p>Loading order details...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/admin/reports.js"></script>
+</body>
+</html>

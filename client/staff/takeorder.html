@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Take Order - FoodieHub Staff</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/staff.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Staff</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="kitchen.html"><i class="fas fa-kitchen-set"></i> Kitchen</a></li>
+        <li><a href="takeorder.html" class="active"><i class="fas fa-pizza-slice"></i> Take Order</a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li id="admin-link" style="display: none;"><a href="../admin/dashboard.html"><i class="fas fa-crown"></i> Admin</a></li>
+        <li id="user-menu">
+          <span><i class="fas fa-user"></i> <span id="user-name"></span></span>
+          <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Stats Bar -->
+    <div class="order-stats-bar">
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-value" id="order-items-count">0</span>
+          <span>items</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value" id="order-total-display">रु 0</span>
+          <span>total</span>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <i class="fas fa-clock"></i>
+          <span id="current-time"></span>
+        </div>
+        <div class="stat">
+          <i class="fas fa-chair"></i>
+          <span id="available-tables-badge">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="takeorder-layout">
+      <!-- Left: Menu Section -->
+      <div class="menu-section">
+        <div class="search-box">
+          <input type="text" id="search-menu" class="search-input" placeholder="🔍 Search menu items...">
+        </div>
+        
+        <!-- Category Filters -->
+        <div class="category-filters" id="category-filters">
+          <button class="cat-filter active" data-cat="all"><i class="fas fa-th"></i> All</button>
+          <button class="cat-filter" data-cat="Appetizer"><i class="fas fa-utensils"></i> Appetizers</button>
+          <button class="cat-filter" data-cat="Main Course"><i class="fas fa-hamburger"></i> Main Course</button>
+          <button class="cat-filter" data-cat="Dessert"><i class="fas fa-ice-cream"></i> Desserts</button>
+          <button class="cat-filter" data-cat="Beverage"><i class="fas fa-coffee"></i> Drinks</button>
+        </div>
+        
+        <!-- Quick Filters -->
+        <div class="quick-filters-menu" style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+          <button class="quick-filter-btn" data-filter="popular"><i class="fas fa-star"></i> Popular</button>
+          <button class="quick-filter-btn" data-filter="veg"><i class="fas fa-leaf"></i> Vegetarian</button>
+          <button class="quick-filter-btn" data-filter="today"><i class="fas fa-fire"></i> Today's Special</button>
+        </div>
+        
+        <div id="menu-items" class="menu-items-scroll">
+          <div class="loading"><div class="spinner"></div><p>Loading menu...</p></div>
+        </div>
+        
+        <div class="pagination" id="pagination"></div>
+      </div>
+      
+      <!-- Right: Order Summary -->
+      <div class="cart-section">
+        <div class="cart-header">
+          <h3><i class="fas fa-shopping-cart"></i> Current Order</h3>
+          <span class="cart-item-count" id="cart-item-count">0 items</span>
+        </div>
+        
+        <!-- Order Type Selector -->
+        <div class="order-type-selector">
+          <label><i class="fas fa-utensils"></i> Order Type</label>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="order-type-btn active" data-type="Dine-in">
+              <i class="fas fa-utensils"></i> Dine-in
+            </button>
+            <button class="order-type-btn" data-type="Takeaway">
+              <i class="fas fa-box"></i> Takeaway
+            </button>
+          </div>
+        </div>
+        
+        <!-- Table Selection -->
+        <div id="table-selection">
+          <label><i class="fas fa-chair"></i> Table Number</label>
+          <select id="table-select" class="table-select">
+            <option value="">Select a table</option>
+          </select>
+        </div>
+        
+        <!-- Pickup Info -->
+        <div id="pickup-info" style="display: none;">
+          <label><i class="fas fa-user"></i> Customer Name</label>
+          <input type="text" id="pickup-name" placeholder="Enter customer name">
+          <label><i class="fas fa-phone"></i> Phone Number</label>
+          <input type="tel" id="pickup-phone" placeholder="Enter phone number">
+        </div>
+        
+        <!-- Order Items -->
+        <div id="order-items" class="order-items-list">
+          <div class="empty-cart">
+            <i class="fas fa-shopping-cart"></i>
+            <p>No items added yet</p>
+            <small>Click on items to add to order</small>
+          </div>
+        </div>
+        
+        <!-- Order Summary -->
+        <div class="order-summary">
+          <div class="summary-row">
+            <span>Subtotal:</span>
+            <span id="subtotal">रु 0</span>
+          </div>
+          <div class="summary-row">
+            <span>Tax (5%):</span>
+            <span id="tax">रु 0</span>
+          </div>
+          <div class="summary-row total">
+            <span>Total:</span>
+            <span id="total">रु 0</span>
+          </div>
+        </div>
+        
+        <!-- Special Instructions -->
+        <div class="order-options">
+          <label><i class="fas fa-comment"></i> Special Instructions</label>
+          <textarea id="special-instructions" rows="2" placeholder="Any special requests?"></textarea>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button id="clear-cart-btn" class="btn-secondary">
+            <i class="fas fa-trash-alt"></i> Clear
+          </button>
+          <button id="place-order-btn" class="btn-place-order">
+            <i class="fas fa-receipt"></i> Place Order
+          </button>
+        </div>
+        
+        <!-- Recent Orders Quick Access -->
+        <div class="recent-orders-quick" style="margin-top: 1rem;">
+          <label style="font-size: 0.8rem; color: #666;"><i class="fas fa-history"></i> Recent Orders</label>
+          <div id="recent-orders-quick-list"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/customer/global.js"></script>
+  <script type="module" src="../js/staff/takeorder.js"></script>
+</body>
+</html>

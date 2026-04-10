@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Menu - FoodieHub</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/customer.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html"><i class="fas fa-utensils"></i> FoodieHub</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart <span id="cart-count" class="cart-count">0</span></a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li id="user-menu" style="display: none;">
+          <a href="profile.html"><i class="fas fa-user"></i> <span id="user-name"></span></a>
+          <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+        <li id="login-link"><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="menu-header">
+      <h1><i class="fas fa-pizza-slice"></i> Our Menu</h1>
+      <p>Explore our delicious selection of dishes</p>
+    </div>
+
+    <!-- Two Column Layout: Sidebar + Content -->
+    <div class="menu-layout">
+      <!-- Left Sidebar - Category Navigation -->
+      <div class="menu-sidebar">
+        <div class="sidebar-title">
+          <i class="fas fa-list"></i> Categories
+        </div>
+        <div class="category-nav" id="category-nav">
+          <div class="category-item active" data-category="Appetizer">
+            <i class="fas fa-utensils"></i>
+            <span>Appetizers</span>
+          </div>
+          <div class="category-item" data-category="Main Course">
+            <i class="fas fa-hamburger"></i>
+            <span>Main Course</span>
+          </div>
+          <div class="category-item" data-category="Dessert">
+            <i class="fas fa-ice-cream"></i>
+            <span>Desserts</span>
+          </div>
+          <div class="category-item" data-category="Beverage">
+            <i class="fas fa-coffee"></i>
+            <span>Drinks</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Content - Menu Items -->
+      <div class="menu-content" id="menu-content">
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>Loading menu...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to Top Button -->
+  <div class="scroll-to-top" id="scroll-to-top">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- Item Detail Modal -->
+  <div id="item-modal" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <div class="modal-header">
+        <h3 id="modal-item-name">Item Name</h3>
+        <span class="modal-close-item">&times;</span>
+      </div>
+      <div id="modal-item-details"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>FoodieHub</h4>
+          <p>Delivering happiness since 2024</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="reservations.html">Reservations</a></li>
+            <li><a href="orders.html">Track Order</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+          <p><i class="fas fa-envelope"></i> info@foodiehub.com</p>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2025 FoodieHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/customer/global.js"></script>
+  <script type="module" src="../js/customer/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Menu - FoodieHub Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Admin</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="homepage.html"><i class="fas fa-home"></i> Homepage</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="menu.html" class="active"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li><a href="staff.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+        <li><a href="tables.html"><i class="fas fa-chair"></i> Tables</a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="../customer/index.html"><i class="fas fa-store"></i> Frontend</a></li>
+        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1><i class="fas fa-pizza-slice"></i> Manage Menu</h1>
+    
+<!-- Add Food Form - ENHANCED -->
+<div class="admin-section">
+  <h2><i class="fas fa-plus-circle"></i> Add New Food Item</h2>
+  <form id="add-food-form" enctype="multipart/form-data">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Name *</label>
+        <input type="text" name="name" placeholder="e.g., Butter Chicken" required>
+      </div>
+      <div class="form-group">
+        <label>Price (रु) *</label>
+        <input type="number" name="price" step="0.01" placeholder="350" required>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category" required>
+          <option value="">Select Category</option>
+          <option value="Appetizer">Appetizer</option>
+          <option value="Main Course">Main Course</option>
+          <option value="Dessert">Dessert</option>
+          <option value="Beverage">Drinks</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Cuisine</label>
+        <select name="cuisine">
+          <option value="Nepali">Nepali</option>
+          <option value="Indian">Indian</option>
+          <option value="Chinese">Chinese</option>
+          <option value="Italian">Italian</option>
+          <option value="Continental">Continental</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Preparation Time (min)</label>
+        <input type="number" name="preparationTime" value="20" min="5">
+      </div>
+      <div class="form-group">
+        <label>Spicy Level (0-5)</label>
+        <input type="number" name="spicyLevel" min="0" max="5" value="2">
+      </div>
+    </div>
+    
+    <!-- Feature Flags -->
+    <div class="feature-flags" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1rem 0; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+      <label class="checkbox-label">
+        <input type="checkbox" name="isVegetarian" value="true"> 🌱 Vegetarian
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" name="isPopular" value="true"> 👨‍🍳 Chef's Special
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" name="isTodaySpecial" value="true"> 🔥 Today's Special
+      </label>
+      <label class="checkbox-label">
+        <input type="checkbox" name="isAvailable" value="true" checked> ✅ Available
+      </label>
+    </div>
+    
+    <div class="form-group">
+      <label>Description</label>
+      <textarea name="description" rows="3" placeholder="Describe the dish..."></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label>Food Image</label>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <input type="file" name="image" accept="image/*" id="food-image-input">
+        <img id="image-preview" src="" alt="Preview" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px; display: none; border: 1px solid #ddd;">
+      </div>
+    </div>
+    
+    <button type="submit" class="btn-submit"><i class="fas fa-plus"></i> Add Food Item</button>
+  </form>
+</div>
+    
+    <!-- Food Items List -->
+    <div class="admin-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2 style="margin: 0;"><i class="fas fa-list"></i> Food Items</h2>
+        <div style="display: flex; gap: 0.5rem;">
+          <select id="category-filter" style="padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid #ddd;">
+            <option value="">All Categories</option>
+            <option value="Appetizer">Appetizers</option>
+            <option value="Main Course">Main Course</option>
+            <option value="Dessert">Desserts</option>
+            <option value="Drinks">Drinks</option>
+          </select>
+          <input type="text" id="search-food" placeholder="Search food..." style="padding: 0.4rem 0.8rem; border-radius: 6px; border: 1px solid #ddd;">
+        </div>
+      </div>
+      <div id="food-list" class="food-grid">
+        <div class="loading"><div class="spinner"></div><p>Loading menu items...</p></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/admin/menu.js"></script>
+</body>
+</html>

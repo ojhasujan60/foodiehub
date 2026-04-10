@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - FoodieHub Admin</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="dashboard.html"><i class="fas fa-utensils"></i> FoodieHub Admin</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="homepage.html"><i class="fas fa-home"></i> Homepage</a></li>
+        <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="users.html"><i class="fas fa-users"></i> Users</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li><a href="staff.html"><i class="fas fa-user-tie"></i> Staff</a></li>
+        <li><a href="tables.html"><i class="fas fa-chair"></i> Tables</a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+        <li><a href="settings.html" class="active"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="../customer/index.html"><i class="fas fa-store"></i> Frontend</a></li>
+        <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+      <h1><i class="fas fa-cog"></i> Restaurant Settings</h1>
+      <button id="save-all-settings" class="btn-primary">
+        <i class="fas fa-save"></i> Save All Settings
+      </button>
+    </div>
+    
+    <div class="settings-grid">
+      
+      <!-- Restaurant Information -->
+      <div class="admin-section">
+        <h2><i class="fas fa-store"></i> Restaurant Information</h2>
+        <form id="restaurant-info-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Restaurant Name *</label>
+              <input type="text" id="restaurant-name" value="Sujan's FoodieHub" required>
+            </div>
+            <div class="form-group">
+              <label>Contact Phone *</label>
+              <input type="tel" id="restaurant-phone" value="+977 980-0000000" required>
+            </div>
+            <div class="form-group">
+              <label>Contact Email *</label>
+              <input type="email" id="restaurant-email" value="info@sujansfoodiehub.com" required>
+            </div>
+            <div class="form-group">
+              <label>Website (Optional)</label>
+              <input type="url" id="restaurant-website" placeholder="https://">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Address *</label>
+            <textarea id="restaurant-address" rows="2" required>123 Food Street, New Baneshwor, Kathmandu, Nepal</textarea>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Operating Hours -->
+      <div class="admin-section">
+        <h2><i class="fas fa-clock"></i> Operating Hours</h2>
+        <div id="operating-hours">
+          <div class="hours-row" style="margin-bottom: 0.75rem; font-weight: 600; color: #666;">
+            <span>Day</span>
+            <span>Opening Time</span>
+            <span>Closing Time</span>
+          </div>
+          <div id="hours-container"></div>
+          <label class="checkbox-label" style="margin-top: 1rem;">
+            <input type="checkbox" id="same-hours-all-days"> Same hours for all days
+          </label>
+        </div>
+      </div>
+      
+      <!-- Financial Settings -->
+      <div class="admin-section">
+        <h2><i class="fas fa-rupee-sign"></i> Financial Settings</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Tax Rate (%)</label>
+            <input type="number" id="tax-rate" value="5" min="0" max="100" step="0.5">
+          </div>
+          <div class="form-group">
+            <label>Service Charge (%)</label>
+            <input type="number" id="service-charge" value="0" min="0" max="100" step="0.5">
+          </div>
+          <div class="form-group">
+            <label>Delivery Fee (रु)</label>
+            <input type="number" id="delivery-fee" value="50" min="0">
+          </div>
+          <div class="form-group">
+            <label>Currency</label>
+            <select id="currency">
+              <option value="NPR" selected>Nepali Rupee (रु)</option>
+              <option value="INR">Indian Rupee (₹)</option>
+              <option value="USD">US Dollar ($)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Order Settings -->
+      <div class="admin-section">
+        <h2><i class="fas fa-box"></i> Order Settings</h2>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Default Order Status</label>
+            <select id="default-order-status">
+              <option value="Pending">Pending</option>
+              <option value="Confirmed" selected>Confirmed</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Auto-Confirm Orders</label>
+            <select id="auto-confirm">
+              <option value="false" selected>No - Manual confirmation</option>
+              <option value="true">Yes - Auto confirm all</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Minimum Order (रु)</label>
+            <input type="number" id="min-order-amount" value="0" min="0">
+          </div>
+          <div class="form-group">
+            <label>Max Prep Time (min)</label>
+            <input type="number" id="max-prep-time" value="45" min="5">
+          </div>
+        </div>
+      </div>
+      
+      <!-- System Settings -->
+      <div class="admin-section">
+        <h2><i class="fas fa-cogs"></i> System Settings</h2>
+        <div class="form-grid">
+          <div class="form-group checkbox-label">
+            <input type="checkbox" id="allow-guest-orders" checked>
+            <label>Allow Guest Orders</label>
+          </div>
+          <div class="form-group checkbox-label">
+            <input type="checkbox" id="require-login-reservation" checked>
+            <label>Require Login for Reservations</label>
+          </div>
+          <div class="form-group checkbox-label">
+            <input type="checkbox" id="send-order-sms">
+            <label>Send Order Confirmation SMS</label>
+          </div>
+          <div class="form-group checkbox-label">
+            <input type="checkbox" id="send-order-email" checked>
+            <label>Send Order Confirmation Email</label>
+          </div>
+          <div class="form-group">
+            <label>Kitchen Notification Sound</label>
+            <select id="notification-sound">
+              <option value="bell" selected>Bell</option>
+              <option value="chime">Chime</option>
+              <option value="none">None</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Auto-Refresh (seconds)</label>
+            <input type="number" id="refresh-interval" value="30" min="10" max="300">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Backup & Restore -->
+      <div class="admin-section">
+        <h2><i class="fas fa-database"></i> Backup & Restore</h2>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button id="export-data" class="btn-secondary">
+            <i class="fas fa-download"></i> Export Data (JSON)
+          </button>
+          <button id="import-data" class="btn-secondary">
+            <i class="fas fa-upload"></i> Import Data
+          </button>
+          <input type="file" id="import-file" accept=".json" style="display: none;">
+          <button id="clear-data" class="btn-secondary" style="background: #f44336; color: white; border-color: #f44336;">
+            <i class="fas fa-trash"></i> Clear All Data
+          </button>
+        </div>
+        <p style="font-size: 0.75rem; color: #666; margin-top: 0.75rem;">
+          <i class="fas fa-info-circle"></i> Export your restaurant data for backup. Import to restore from a backup file.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../js/admin/settings.js"></script>
+</body>
+</html>

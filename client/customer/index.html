@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Sujan's FoodieHub - Home</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/customer.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="logo">
+        <a href="index.html"><i class="fas fa-utensils"></i> Sujan's FoodieHub</a>
+      </div>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="menu.html"><i class="fas fa-pizza-slice"></i> Menu</a></li>
+        <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart <span id="cart-count" class="cart-count">0</span></a></li>
+        <li><a href="reservations.html"><i class="fas fa-calendar-alt"></i> Reservations</a></li>
+        <li><a href="orders.html"><i class="fas fa-box"></i> Orders</a></li>
+        <li id="user-menu" style="display: none;">
+          <a href="profile.html"><i class="fas fa-user"></i> <span id="user-name"></span></a>
+          <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </li>
+        <li id="login-link"><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Welcome to <span class="brand-name">Sujan's</span> Foodie Hub</h1>
+        <p>Experience Authentic Flavors in a Cozy Ambiance</p>
+        <div class="search-container">
+          <input type="text" id="hero-search" placeholder="Search for your favorite dish...">
+          <button id="hero-search-btn"><i class="fas fa-search"></i> Search</button>
+        </div>
+        <div class="hero-buttons">
+          <a href="menu.html" class="btn-hero-primary">Explore Menu</a>
+          <a href="reservations.html" class="btn-hero-secondary">Book a Table</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Restaurant Highlights -->
+  <section class="highlights-section">
+    <div class="container">
+      <h2 class="section-title">Why Dine With Us?</h2>
+      <div class="highlights-grid">
+        <div class="highlight-card">
+          <div class="highlight-icon"><i class="fas fa-leaf"></i></div>
+          <h3>Fresh Ingredients</h3>
+          <p>Locally sourced, farm-fresh produce daily</p>
+        </div>
+        <div class="highlight-card">
+        <div class="highlight-icon"><i class="fas fa-utensils"></i></div>
+          <h3>Expert Chefs</h3>
+          <p>Master chefs with years of experience</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon"><i class="fas fa-trophy"></i></div>
+          <h3>Award Winning</h3>
+          <p>Recognized for culinary excellence</p>
+        </div>
+        <div class="highlight-card">
+          <div class="highlight-icon"><i class="fas fa-home"></i></div>
+          <h3>Warm Ambiance</h3>
+          <p>Perfect for family & friends gatherings</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chef's Special Dishes -->
+  <section class="chef-special-section">
+    <div class="container">
+      <h2 class="section-title">👨‍🍳 Chef's Special</h2>
+      <p class="section-subtitle">Signature dishes crafted with passion</p>
+      <div id="chef-specials-grid" class="chef-specials-grid">
+        <div class="loading-state"><div class="spinner"></div><p>Loading chef's specials...</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Today's Specials (Popular Items) -->
+  <section class="specials-section">
+    <div class="container">
+      <h2 class="section-title">🔥 Today's Specials</h2>
+      <p class="section-subtitle">Most loved by our customers</p>
+      <div id="specials-grid" class="specials-grid">
+        <div class="loading-state"><div class="spinner"></div><p>Loading specials...</p></div>
+      </div>
+      <div class="view-all-btn">
+        <a href="menu.html" class="btn-primary">View Full Menu →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ambience & Dining Options -->
+  <section class="ambience-section">
+    <div class="container">
+      <h2 class="section-title">🏠 Dining Experience</h2>
+      <div class="ambience-grid">
+        <div class="ambience-card">
+          <i class="fas fa-utensils"></i>
+          <h3>Indoor Seating</h3>
+          <p>Comfortable air-conditioned dining hall</p>
+        </div>
+        <div class="ambience-card">
+          <i class="fas fa-tree"></i>
+          <h3>Outdoor Seating</h3>
+          <p>Garden area with natural breeze</p>
+        </div>
+        <div class="ambience-card">
+          <i class="fas fa-crown"></i>
+          <h3>Private Dining</h3>
+          <p>VIP rooms for special occasions</p>
+        </div>
+        <div class="ambience-card">
+          <i class="fas fa-heart"></i>
+          <h3>Family Friendly</h3>
+          <p>Kids play area & family tables</p>
+        </div>
+        <div class="ambience-card">
+          <i class="fas fa-glass-cheers"></i>
+          <h3>Romantic Setting</h3>
+          <p>Candlelight dinner arrangements</p>
+        </div>
+        <div class="ambience-card">
+          <i class="fas fa-users"></i>
+          <h3>Group Bookings</h3>
+          <p>Parties, events & celebrations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Special Offers & Happy Hours -->
+  <section class="offers-section">
+    <div class="container">
+      <h2 class="section-title">🎉 Special Offers</h2>
+      <div class="offers-grid">
+        <div class="offer-card happy-hour">
+          <i class="fas fa-clock"></i>
+          <div>
+            <h3>Happy Hours</h3>
+            <p>Monday - Friday | 5:00 PM - 7:00 PM</p>
+            <span class="offer-tag">20% OFF on selected items</span>
+          </div>
+        </div>
+        <div class="offer-card weekend">
+          <i class="fas fa-calendar-week"></i>
+          <div>
+            <h3>Weekend Specials</h3>
+            <p>Saturday & Sunday</p>
+            <span class="offer-tag">Buy 1 Get 1 Free</span>
+          </div>
+        </div>
+        <div class="offer-card group">
+          <i class="fas fa-users"></i>
+          <div>
+            <h3>Group Discount</h3>
+            <p>For 5+ people</p>
+            <span class="offer-tag">10% OFF on total bill</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      <h2 class="section-title">💬 What Our Customers Say</h2>
+      <div class="testimonials-grid" id="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p>"Amazing food and great ambiance! The butter chicken is a must-try."</p>
+          <div class="customer">
+            <i class="fas fa-user-circle"></i>
+            <span>- Ramesh Sharma</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p>"Best place for family dinner. Excellent service and delicious food."</p>
+          <div class="customer">
+            <i class="fas fa-user-circle"></i>
+            <span>- Sita Gurung</span>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+          </div>
+          <p>"Loved the ambiance and the chef's special pizza! Will visit again."</p>
+          <div class="customer">
+            <i class="fas fa-user-circle"></i>
+            <span>- Hari Prasad</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location & Hours -->
+  <section class="location-section">
+    <div class="container">
+      <div class="location-wrapper">
+        <div class="location-info">
+          <h2><i class="fas fa-map-marker-alt"></i> Visit Us</h2>
+          <div class="address">
+            <i class="fas fa-location-dot"></i>
+            <p>123 Food Street, New Baneshwor, Kathmandu, Nepal</p>
+          </div>
+          <div class="hours">
+            <h3><i class="fas fa-clock"></i> Opening Hours</h3>
+            <ul>
+              <li><span>Monday - Friday:</span> <span>11:00 AM - 10:00 PM</span></li>
+              <li><span>Saturday - Sunday:</span> <span>10:00 AM - 11:00 PM</span></li>
+            </ul>
+          </div>
+          <div class="contact">
+            <h3><i class="fas fa-phone"></i> Contact</h3>
+            <p><i class="fas fa-phone-alt"></i> +977 980-0000000</p>
+            <p><i class="fas fa-envelope"></i> info@sujansfoodiehub.com</p>
+          </div>
+        </div>
+        <div class="location-map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.123456789!2d85.323456!3d27.712345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDQyJzQ0LjUiTiA4NcKwMTknMjQuNSJF!5e0!3m2!1sen!2snp!4v1234567890" 
+            width="100%" height="300" style="border:0; border-radius: 16px;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>Sujan's FoodieHub</h4>
+          <p>Authentic flavors since 2024</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="reservations.html">Reservations</a></li>
+            <li><a href="orders.html">My Orders</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone"></i> +977 980-0000000</p>
+          <p><i class="fas fa-envelope"></i> info@sujansfoodiehub.com</p>
+        </div>
+        <div>
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2025 Sujan's FoodieHub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="../js/customer/global.js"></script>
+  <script type="module" src="../js/customer/index.js"></script>
+</body>
+</html>
