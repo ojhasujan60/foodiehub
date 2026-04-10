@@ -75,8 +75,27 @@ setTimeout(() => {
   archiveOldOrders();
 }, 3000);
 
-// Start server
-const PORT = process.env.PORT || 3001;
+// Serve frontend HTML pages
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/customer/index.html'));
+});
+
+app.get('/customer/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', req.path));
+});
+
+app.get('/staff/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', req.path));
+});
+
+app.get('/admin/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', req.path));
+});
+
+// Catch-all for SPA-style routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/customer/index.html'));
+});
 server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📱 Customer portal: http://localhost:${PORT}/customer/`);
